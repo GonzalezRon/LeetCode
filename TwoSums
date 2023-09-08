@@ -27,3 +27,35 @@ Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
          }
      }  
  };
+ O(n^2) time complexity 
+a Faster approuch using Object
+
+
+
+
+
+const twoSum =(nums, target)=>{
+    const myObject = {}
+    for (let i = 0 ;  i < nums.length ; i++){
+        
+        const factor = nums[i]
+        const solution = target - factor
+
+        //check if the solution is present within the object
+
+        if(myObject[solution] >= 0){
+            // console.log('tester: ',myObject[solution])
+            return [myObject[solution],i]
+        }
+        else 
+             myObject[factor] = i
+        }
+        //return [] 
+    }
+
+
+
+
+
+
+
