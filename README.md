@@ -5,11 +5,11 @@ I chose leetcode for its seemless and easy filtering instead of hackerranks 7 da
 
  format: 
 
--Name of Problem 
+-Name
 
 -Description 
 
--solution(s) 
+-Solution(s) 
 
 
 
