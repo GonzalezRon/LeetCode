@@ -1,0 +1,86 @@
+Contains Duplicate
+
+
+Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+
+ 
+
+Example 1:
+
+Input: nums = [1,2,3,1]
+Output: true
+Example 2:
+
+Input: nums = [1,2,3,4]
+Output: false
+
+
+
+
+var containsDuplicateW = function(nums) {
+    // sort the numbers 
+    // iterate them and check if num1 and num2 are alike
+    // return false 
+    // finally return true if not 
+    nums.sort()
+    // let j = 1
+    for (let i = 0; i < nums.length; i++){
+       
+        if ( nums[i+1] === nums[i] ){
+            return true 
+        }
+        //j++
+    }
+    return false 
+};
+
+
+
+
+// Worst Solution, Slowest Runtime (10342ms!)
+// However this solution is the Best in Memory
+
+var containsDuplicateEE = function(nums) {
+    let output = false;
+    for(let i = 0; i < nums.length; i++){
+        for(let k = i+1; k < nums.length; k++){
+            if(nums[i] === nums[k]){
+                output = true; 
+            }
+        }
+    }
+    return output
+};
+
+
+
+// slow solution using an object
+// nums is sorted then iterated 
+// worst case nums.length[-1,-2] 
+// all elelemtns are inserted and last two checks true
+
+const containsDuplicateP  =(nums)=>{
+    const oby = {}
+    nums.sort()
+    for (let i = 0; i < nums.length; i++){
+        if(oby[nums[i]] !== undefined){
+            return true
+        }else{
+          oby[nums[i]] = i   
+        } 
+    }
+    return false
+}
+
+
+
+//fastest runtime 
+// nums is converted to a set 
+// sets only permit unique keys, therefore size is reduced 
+
+const containsDuplicate = (nums) => {
+    const set = new Set(nums)
+    return nums.length !== set.size
+}
+
+
