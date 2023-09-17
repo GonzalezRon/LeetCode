@@ -30,3 +30,30 @@ var isHappy = function(n) {
     }
     return true;
 };
+
+
+//RE-WRITTEN SOLUTION 
+
+const isHappy = function(n){
+    //check if the number is = 1 else loop
+    //while
+
+    // if n is already solved return false
+    // if n is not found solve 
+    let reviewer = [] //checks our result if repeat, then false
+    while(n != 1){
+        if(reviewer.includes(n)){
+            return false
+        }else{
+            reviewer.push(n)
+            
+            // splitting and doing math all below 
+            n = n.toString().split('').map((i)=> i**2).reduce((sum,j)=> sum + j)
+            
+        }
+    }return true; 
+
+
+}
+
+
