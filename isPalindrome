@@ -1,0 +1,63 @@
+isPalindrome
+
+A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing 
+all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include 
+letters and numbers.
+
+Given a string s, return true if it is a palindrome, or false otherwise.
+
+ 
+
+Example 1:
+
+Input: s = "A man, a plan, a canal: Panama"
+Output: true
+Explanation: "amanaplanacanalpanama" is a palindrome.
+
+
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+// var isPalindrome = function(s) {
+
+//     s = s.replace(/[^a-z0-9]/gi,'').toLowerCase()
+
+//     if (s.length < 2 ) return true
+
+//     let last = s.length -1
+
+//     for(let first = 0; first < s.length/2; first++ ){
+//         if(s[first] == s[last]){
+//             //console.log(s[first],' ',s[last])
+//             last-- 
+//         }
+//         else 
+//             return false
+//     }return true
+    
+// };
+// in this example I used a regex solution to strip all but >> letters and numbers <<
+// used two positions to compare the supposed items
+
+// optimized 
+// what comes to mind after my solution, comparing the elements that are not alike 
+// instead of checking similarities check differences 
+
+
+function isPalindrome (s){
+    s = s.replace(/[^a-z0-9]/gi,'').toLowerCase()
+    
+    if(s.length < 2) return true //solo or no element is true
+
+    let last = s.length -1
+
+    for(let e = 0; e < s.length/2; e++){
+        if(s[last] != s[e]){
+            return false
+        }
+        last--
+    }return true
+}
+
