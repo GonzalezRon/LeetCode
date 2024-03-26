@@ -1,0 +1,37 @@
+ROMAN TO INTEGER 
+
+given a roman number as a string, chage to an integer and return result 
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var romanToInt = function(s) {
+//create an object that holds the key and value pairs
+    let obj = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L' : 50,
+        'C': 100,
+        'D': 500,
+        'M':1000
+    }
+
+    let res = 0 //total throught out algorithm 
+
+    for (let i  = 0; i < s.length; i++){
+
+        let s1 = obj[s[i]]
+        let s2 = obj[s[i+1]]
+        //check values to subtract and add to res
+        if(s1 < s2){
+             res += s2 - s1
+            i++ // skip subtracted value
+        }else{
+            // sum total
+            res+= s1
+        }
+    }
+    return res
+};
