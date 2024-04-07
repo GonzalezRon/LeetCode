@@ -1,0 +1,102 @@
+/**
+ * @param {string} digits
+ * @return {string[]}
+ */
+var letterCombinationsR = function(digits) {
+
+    if(digits.length < 1)return []; 
+    let object = {
+        2:'abc',3:'def',4:'ghi',
+        5:'jkl',6:'mno',7:'pqrs',
+        8:'tuv',9:'wxyz',
+    }
+    let result = [];
+    let currString = ''
+    const dfs=(index)=>{
+        
+        if (currString.length === digits.length){  
+            result.push(currString)// 'ad',etc 
+            return 
+        }
+        for (let letter of object[digits[index]]){
+            let prev = currString 
+            currString += letter //currentString is now previous when looping 
+            dfs(index+1) 
+            currString = prev //finished looping: now backtrack, goes back an index
+        }
+    }
+    dfs(0) 
+    return result
+};
+
+
+
+
+
+
+var letterCombinations = function(digits) {
+    let map = {
+        2: ['a', 'b', 'c'],
+        3: ['d', 'e', 'f'],
+        4: ['g', 'h', 'i'],
+        5: ['j', 'k', 'l'],
+        6: ['m', 'n', 'o'],
+        7: ['p', 'q', 'r', 's'],
+        8: ['t', 'u', 'v'],
+        9: ['w', 'x', 'y', 'z']
+    };
+
+    let combinations = [];
+
+    function backtracking(currDigits, combination) {
+        // Base case
+        if (combination.length === digits.length) {
+            combinations.push(combination.join('')); 
+            return;
+        }
+        
+        // Recursive + backtracking cases
+        for (const digit of currDigits) {
+            let key = map[digit];
+            for (const letter of key) {
+                combination.push(letter); 
+                const updatedDigits = currDigits.substring(1); // Remove first integer 
+                console.log("updatedDigits",updatedDigits)
+               
+                combination.pop();
+                
+            }
+            break;
+        }
+    }
+    backtracking(digits, []);
+    if(combinations[0] == "") return []
+    return combinations;
+};
+
+
+/**
+The letterCombination algorithm above (2), demonstrates 
+    classic recursion. Recursion involves backtracking, a base-case, and 
+    exploration of all cases/routes 
+
+The recursive agorithm backtracking() is called within letterCombinations().
+    Input for backtracking(digits, []) are renamed after their initial call 
+    as 'currDigits' and 'combination'. 
+
+'combination' is an empty array where the letters are joined.['a','d','g']
+    'currDigits' becomes updatedDigits by removing elements between(0,1) 
+    ex: 234 --> 34 --> 4 --> _ 
+
+Base-case : if the length of letters match 'digits' length, the 'combinations' 
+    array pushes the letters and ends the function. ex: ['adg']
+
+recursive + backtracking case : two for loops get all letters of all digits 
+    the 4th line in this block pushes the letters into 'combination'. 
+    updatedDigits removes the beginning integer. then the recursive function is called
+    the backtracking happens after the function and the combination, 'pop()' is called 
+    and removed the following letter, essentially stepping back into the previous array 
+
+    
+ */
+
