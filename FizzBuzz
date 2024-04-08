@@ -31,3 +31,49 @@ var fizzBuzz = function(n) {
     }
     return arr
 };
+
+
+
+
+// UPDATE: LEARNING RECURSION: WITH FIZZBUZZ // 
+
+Solving fizzBuzz with recursion and without a for loop
+
+
+
+function fizzBuzz(myInt){
+        let result = []; 
+        
+        const recurse=(n)=>{
+   // base-case
+            if( n > myInt){
+                return result;
+            }
+
+   // to successfully push into the result array,
+   // the blocks must use 'if', 'else if', and 'else'
+
+            if(n%3 === 0 && n%5 === 0){
+                result.push("fizzBuzz")
+            }
+            else if(n%3 === 0){
+                result.push("fizz")             
+            }
+            else if(n&5 === 0){
+                result.push("Buzz")            
+            }
+            else{
+                result.push(n)
+            }
+            recurse(n + 1)
+        }        
+        recurse(1)
+        return result; 
+}
+
+console.log(fizzBuzz(15))
+ 
+
+
+
+
