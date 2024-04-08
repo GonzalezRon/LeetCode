@@ -85,3 +85,25 @@ const containsDuplicate = (nums) => {
 }
 
 
+
+
+
+
+//  REVIEW: ANOTHER METHOD USING A HASH D.S. // 
+
+const myArrayCheck =(arr)=>{
+    const map = new Map(); 
+
+    if(arr.length < 2) return false; 
+
+    for(let digit of arr){
+
+        if(map.has(digit)){
+            return true
+        }else{
+            map.set(digit)
+        }
+    }
+    return false
+
+}
