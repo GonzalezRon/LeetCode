@@ -1,0 +1,176 @@
+
+
+Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+
+ 
+
+Example 1:
+
+Input: strs = ["flower","flow","flight"]
+Output: "fl"
+Example 2:
+
+Input: strs = ["dog","racecar","car"]
+Output: ""
+Explanation: There is no common prefix among the input strings.
+
+
+
+
+
+Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+
+ 
+
+Example 1:
+
+Input: strs = ["flower","flow","flight"]
+Output: "fl"
+Example 2:
+
+Input: strs = ["dog","racecar","car"]
+Output: ""
+Explanation: There is no common prefix among the input strings.
+
+
+
+
+function longestCommonPrefix(strs, commonPrefix = strs[0]){ // input; given string array, and first word
+    
+    if (commonPrefix === '') return commonPrefix; // // edited | given returns '' 
+    let res = true;                               // boolean value for if statement(see below)
+    for (let word of strs) {                      // loop 
+        if (commonPrefix !== word.slice(0, commonPrefix.length)) { // check matching prefix length 
+            res = false;                          // inside 'if': false to enter recursion call 
+            break;                                // exit the loop
+        }
+    }                 
+    if (!res) return longestCommonPrefix(strs, commonPrefix.slice(0, -1)); //subtract last character 
+    return commonPrefix;                          // edited || uncut string 
+};
+
+
+
+const longestCommonPrefix =(strs,firstWord = strs[0])=>{  //given strs, firstWord                                                          
+    if(firstWord === ''){                                   //firstword is checked if emtpy                                  
+      return firstWord;                                     //
+    };
+    let recursion = false;                                   //variable that allows call-back 
+    for(const word of strs){       
+        if(firstWord !== word.slice(0,firstWord.length)){   //compare the words in strs[array]
+            recursion = true;                               // recursion is allowed 
+            break                                           // exit the for loop 
+        };                                                 
+    };
+    if(recursion)return longestCommonPrefix(strs,firstWord.slice(0,-1)); // pass strs, firstWord minus the last character 
+    return firstWord;                                      // return the final Edited first word                                 
+}
+
+
+
+const longestCommonPrefix = function(strs){
+    if(!strs.length)return ''
+
+    for(let i = 0; i<strs[0].length; i++){                  // 0 index of first word :. strs[0]
+ 
+        for(let j = 1; j<strs.length; j++){                 // 1 index for length of strs array
+
+            if(strs[0][i] != strs[j][i]){                   // if 1st lettr of firstword != first lttr of 2nd word
+                                        //console.log(strs[0][i],strs[j][i])
+                return strs[0].slice(0,i)                   // return the prefix; from 0 - index
+            }
+        }
+    }
+    return strs[0]                                         // return the first 'word' - 'possibly letter' 
+}
+
+
+
+const longestCommonPrefix = function(strs){
+
+    let result = ''           // returns an empty string
+    strs.sort()               // sort the array
+                              // console.log('after a sort call: ', strs)
+    let first = strs[0].split('')            // first word split by char
+    let last = strs[strs.length-1].split('') // last word split by char
+    
+                                            // console.log("first:", first,'\n last:',last)
+    for(let i = 0; i<first.length; i++){    // loop the length of first word
+        if(first[i]!=last[i]){              // compare the first elements of both first and last elements
+            break 
+        }
+        result += first[i]                 // add the first letter (again) :. it matches 
+    }   
+    return result;                         
+}
+
+
+
+const longestCommonPrefix =(strs, firstW = strs[0])=>{
+    if(  firstW === '') return ''   //check if the element being compared 
+        let action = true
+        for( let word of strs ){
+            if (firstW != word.slice(0,firstW.length)){ 
+                action = false 
+            }
+            if(!action){
+                return longestCommonPrefix(strs, firstW.slice(0,-1) )
+            }
+        }return firstW
+}
+
+
+
+
+//first element can be empty, or 1 element 
+//all functions compare first element to itself or second array
+
+
+
+const longestCommonPrefix=(strs)=>{
+    let i = 1 
+    let x = strs[0]
+
+    while(i < strs.length){
+        console.log('i',i)
+        if (!strs[i].startsWith(x)){
+            x = x.slice(0,-1)
+           //subtract from x as first word 
+        }else{
+            // jump an element if the string doesnt start with x 
+            i++
+        }
+    }
+    return x 
+}
+
+
+
+const longestCommonPrefix =(strs)=>{
+    //while is used for subtracting last elements till match
+
+    let firstW = strs[0]
+
+   function recursion(strs, index = 1 ){
+        if(firstW === '') return ''
+
+
+        while (index < strs.length ){
+            if(!strs[index].startsWith(firstW)){    // key word for this function -- startsWith()
+                firstW = firstW.slice(0,-1)
+            }else{
+                return recursion(strs, index+1 )
+            }
+        }return firstW
+    }
+
+    return recursion(strs, index = 1)
+}
+
+
+
+
