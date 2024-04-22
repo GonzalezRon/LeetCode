@@ -1,0 +1,81 @@
+You are given an integer array nums consisting of n elements, and an integer k.
+
+Find a contiguous subarray whose length is equal to k that has the maximum average value and return this value. Any answer with a calculation error less than 10-5 will be accepted.
+
+ 
+
+Example 1:
+
+Input: nums = [1,12,-5,-6,50,3], k = 4
+Output: 12.75000
+Explanation: Maximum average is (12 - 5 - 6 + 50) / 4 = 51 / 4 = 12.75
+Example 2:
+
+Input: nums = [5], k = 1
+Output: 5.00000
+ 
+
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+const myfindMaxAverage = (nums, k) => {
+let max = 0 
+
+for(let i = 0; i < k; i++){
+    max += nums[i]
+}
+
+let curr = max; 
+console.log('curr: ',curr)
+
+for(let i = k; i < nums.length; i++){ // from k to the nums.length
+    curr += nums[i] - nums[i - k] // calculation
+    console.log('myCurr: ',curr, "max: ", max)
+    if(max < curr){ // max < curr when curr is 51 
+        max = curr  // 51/4 
+    }
+}
+return max/ k 
+}
+
+
+const findMaxAverage =(nums, k)=>{
+    let sum = 0 // primary space to hold max sum 
+    
+    // some examples have the initial solved
+    for(let i = 0; i < k; i++){
+        sum += nums[i]
+    }
+        let temp = sum
+    // after the initial loop sum 
+    
+        
+    for(let j = k; j < nums.length; j++){
+        temp += nums[j] - nums[j - k]
+    //console.log("temp:",temp,'\n math',nums[j],'-',nums[j-k])
+        if(temp > sum ) sum = temp 
+    }
+    return sum/k
+    
+}
+
+const XfindMaxAverage = function(nums, k){
+    let max = 0
+    let count = 0 
+    for(let i = 0; i < k; i++ ){ // notice some sliding window solutn. take care of initial  
+        max += nums[i]           
+    }
+    max = max 
+    count = max 
+    
+    for(let i = k; i < nums.length; i++ ){  // loop from k onwords till nums.length 
+         count = (count + nums[i] - nums[i - k])   // add n[i] remove - n[i-k]
+         max = Math.max(count, maxAvg)
+    }
+    return max/ k 
+}
+
+   
