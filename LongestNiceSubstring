@@ -1,0 +1,75 @@
+A string s is nice if, for every letter of the alphabet that s contains, it appears both in uppercase and lowercase. For example, "abABB" is nice because 'A' and 'a' appear, and 'B' and 'b' appear. However, "abA" is not because 'b' appears, but 'B' does not.
+
+Given a string s, return the longest substring of s that is nice. If there are multiple, return the substring of the earliest occurrence. If there are none, return an empty string.
+
+ 
+
+Example 1:
+
+Input: s = "YazaAay"
+Output: "aAa"
+Explanation: "aAa" is a nice string because 'A/a' is the only letter of the alphabet in s, and both 'A' and 'a' appear.
+"aAa" is the longest nice substring.
+Example 2:
+
+Input: s = "Bb"
+Output: "Bb"
+Explanation: "Bb" is a nice string because both 'B' and 'b' appear. The whole string is a substring.
+
+
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+
+
+const WorstlongestNiceSubstring=(s)=>{
+    let char = ''; 
+    
+    for(let i = 0; i < s.length-1; i++){ // new sets every iteration 
+        const charSet = new Set()
+        const notPresent = new Set()
+        
+        let someChar = '';              // empty string for len of s
+        for(let j = i; j < s.length; j++){ // from i = to s.len 
+            charSet.add(s[j])           //  add a new el to the charSet 
+
+            someChar += s[j]            // add s[j] to someChar 
+            if(charSet.has(s[j].toLowerCase()) && charSet.has(s[j].toUpperCase())){
+                // check for lowerCase and upperCase for el: when el = s[j]
+                notPresent.delete(s[j].toLowerCase())  //remv el.LowerCase 
+                notPresent.delete(s[j].toUpperCase())   // remv el UpprCase
+                if(char.length < someChar.length && notPresent.size == 0)char = someChar; 
+                                            
+            }else{ // else add letter to notPresent 
+                    notPresent.add(s[j])
+                    //console.log("this is not present:", s[j])
+            }
+        }
+    }   
+    return char
+}
+
+
+
+
+
+
+var longestNiceSubstring = function(s) {
+    if (s.length === 1) return "";
+    
+    let set = new Set(s);
+    for (let i = 0; i < s.length; i++) {
+        if (set.has(s[i].toLowerCase()) && set.has(s[i].toUpperCase())) continue;
+        let left = longestNiceSubstring(s.slice(0, i)); // slice the string to divide
+        let right = longestNiceSubstring(s.slice(i + 1)); // return the longest substring 
+        return left.length >= right.length ? left : right;
+    }
+
+    return s;
+};
+
+// this solution uses recursion. left and right are spliced or divided 
+// the string is put into a set and used to trim or continue to the next letter 
+// Divide and conquere 
