@@ -1,0 +1,78 @@
+Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold
+
+Given an array of integers arr and two integers k and threshold, return the number of sub-arrays of size k and average greater than or equal to threshold.
+
+ 
+
+Example 1:
+
+Input: arr = [2,2,2,2,5,5,5,8], k = 3, threshold = 4
+Output: 3
+Explanation: Sub-arrays [2,5,5],[5,5,5] and [5,5,8] have averages 4, 5 and 6 respectively. All other sub-arrays of size 3 have averages less than 4 (the threshold).
+Example 2:
+
+Input: arr = [11,13,17,23,29,31,7,5,2,3], k = 3, threshold = 5
+Output: 6
+Explanation: The first 6 sub-arrays of size 3 have averages greater than 5. Note that averages are not integers.
+
+
+
+
+var numOfSubarrays = function(arr, k, threshold) {
+  // arr[]
+  // average >= threshold 
+  
+  let average = 0 ,counter = 0 
+    for(let j = 0; j < k; j++ ){
+        average += arr[j]
+    }
+
+    for(let i = k; i < arr.length; i++){
+        if(average /k >= threshold){
+            counter++
+        }
+        average += -arr[i - k] + arr[i]
+        //console.log(average)
+
+    }
+    if (average/k >= threshold)counter++
+    return counter
+};
+
+
+
+const EnumOfSubarray  = function(arr, k, threshold){
+    let count = 0 
+    let sum = 0
+    let j = 0
+    
+    for(let i = 0; i < arr.length; i++){
+        sum += arr[i]       // left side of window 
+
+        if (i >= k - 1 ){   // fix k to accomadate index 
+            if((sum / k) >= threshold){
+                count++
+            }
+            sum-= arr[j++]
+        } 
+    }
+    return count;
+}
+
+
+const KnumOfSubarrays =(arr,k,threshold)=>{
+    let sum = 0 , count = 0 , j = 0
+
+    for(let i in arr){
+        sum += arr[i]
+
+        if( i >= k-1 ){ // k-1 as index 
+            if(sum/k >= threshold){
+                count++
+            }
+            sum-=arr[j++]
+        }
+        
+    }
+    return count    
+}   
