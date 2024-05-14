@@ -62,14 +62,6 @@ return result               // return Math.max length of longest equal subarray
 
 
 
-
-
-
-
-
-
-
-
 var longestEqualSubarray = function(nums, k) {
     let freq = new Map();
     let maxLen = 0;
@@ -98,5 +90,59 @@ var longestEqualSubarray = function(nums, k) {
 };
 
 
+
+const WQlongestEqualSubarray = (nums, k) => {
+    let dp = Array(nums.length + 1 ).fill(0)
+    let max = 0
+    // [0,0,0,0,0,0,0] k = 3 
+    for(let left = 0, right = 0; right < nums.length; right++){
+
+        max = Math.max(max, ++dp[nums[right]])
+        
+        if(max + k <= right - left){ 
+            --dp[nums[l++]]
+        }
+
+    }
+    return max
+}
+
+
+const longestEqualSubarray =(nums, k)=>{
+
+    let arr = Array(nums.length+1).fill(0)
+    let maxInt = 0, left = 0
+                    // constraints 1 <= nums[i] <= nums.length therfore an array 
+    for(let i = 0; i < nums.length; i++){
+        
+        maxInt = Math.max(maxInt, ++arr[nums[i]])
+
+        if(maxInt + k <= i-left){ // keeps the growing number of equals under scope 
+            // remove the count from the array of length nums
+            left++
+            --arr[nums[i]]
+        }
+    }
+    return maxInt
+}
+
+
+/**
+    Some Important things to know, the first example uses a HashMap to hold the indices of nums. 
+    The second example was similar in this approach however, the nums are not stored, they are counted.
+    Using a HashMap as a counter is considered a pattern. 
+
+    The second half of the first function uses a SlidingWindow approach however it does not use the hint as a solution. 
+    The first solution counts the number of elements in the array of the HashMap, as well as the difference between them.
+
+    The second solution uses the HashMap-Count pattern to hold the equal values. To manage the elements in a
+    sliding window pattern the count is managed through max + k <= i - j + 1. This checks the errors over distance 
+    and number of acceptible values and finally checking the max length. 
+
+    The last solution is the most lean and quickest, again following the hint, Max + k <= right - left  makes it 
+    possible to traverse the array in one pass simultaneously keeping count and max length. Inside the for loop is a 
+    while loop that will subtract the count from the given array as input for the Array filled with zeros
+
+ */
 
 
