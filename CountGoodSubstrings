@@ -38,11 +38,11 @@ const XcountGoodSubStrings = function(s){
             right++ 
         }
         if(mapWindow.size === 3){
-            goodCount++
+            Count++
         }
         mapWindow.delete(s[left])
     }
-    return count++
+    return count
     
 }
 
