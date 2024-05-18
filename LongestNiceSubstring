@@ -25,26 +25,34 @@ Explanation: "Bb" is a nice string because both 'B' and 'b' appear. The whole st
 
 
 const WorstlongestNiceSubstring=(s)=>{
+
     let char = ''; 
     
-    for(let i = 0; i < s.length-1; i++){ // new sets every iteration 
+    for(let i = 0; i < s.length-1; i++){
+
         const charSet = new Set()
         const notPresent = new Set()
         
-        let someChar = '';              // empty string for len of s
-        for(let j = i; j < s.length; j++){ // from i = to s.len 
-            charSet.add(s[j])           //  add a new el to the charSet 
+        let someChar = '';             
 
-            someChar += s[j]            // add s[j] to someChar 
+        for(let j = i; j < s.length; j++){ 
+
+            charSet.add(s[j])           
+            someChar += s[j]        
+
             if(charSet.has(s[j].toLowerCase()) && charSet.has(s[j].toUpperCase())){
-                // check for lowerCase and upperCase for el: when el = s[j]
-                notPresent.delete(s[j].toLowerCase())  //remv el.LowerCase 
-                notPresent.delete(s[j].toUpperCase())   // remv el UpprCase
-                if(char.length < someChar.length && notPresent.size == 0)char = someChar; 
-                                            
-            }else{ // else add letter to notPresent 
+
+                notPresent.delete(s[j].toLowerCase())  
+                notPresent.delete(s[j].toUpperCase())  
+
+                if(char.length < someChar.length && notPresent.size == 0){
+
+                   char = someChar
+
+                 }                           
+            }else{ 
                     notPresent.add(s[j])
-                    //console.log("this is not present:", s[j])
+                 
             }
         }
     }   
