@@ -1,0 +1,68 @@
+A concatenated string is a string that exactly contains all the strings of any permutation of words concatenated.
+
+For example, if words = ["ab","cd","ef"], then "abcdef", "abefcd", "cdabef", "cdefab", "efabcd", and "efcdab" are all concatenated strings. "acdbef" is not a concatenated string because it is not the concatenation of any permutation of words.
+Return an array of the starting indices of all the concatenated substrings in s. You can return the answer in any order.
+
+ 
+
+Example 1:
+
+Input: s = "barfoothefoobarman", words = ["foo","bar"]
+
+Output: [0,9]
+
+Explanation:
+
+The substring starting at 0 is "barfoo". It is the concatenation of ["bar","foo"] which is a permutation of words.
+The substring starting at 9 is "foobar". It is the concatenation of ["foo","bar"] which is a permutation of words.
+
+
+
+var findSubstring = function(s, words) {
+
+    let results = [] 
+    let k = words[0].length             
+    let wordsMap = new Map()
+
+
+   for(let word of words){
+     wordsMap.set(word, (wordsMap.get(word)|| 0) + 1)   // Frequency for words 
+   }                        
+    
+    for(let i = 0; i < k; i++){                       // Beginning of Sliding Window 
+        let left = i; 
+        let right = i; 
+        let count = 0; 
+        let seenMap = new Map()
+        while(right + k <= s.length){               // Count by K from the right of the Sliding Window 
+            let word = s.slice(right, right + k) 
+            right += k           
+
+            if(wordsMap.has(word)){                // Does wordMap have the word we are looking at? 
+                seenMap.set(word,(seenMap.get(word) || 0) + 1); 
+                count++;  
+
+                while(seenMap.get(word) > wordsMap.get(word)){       // Remove repeating words to fix count and index-result
+                    let leftWord = s.slice(left , left + k)          // removes trailing elements 
+                    seenMap.set(leftWord, seenMap.get(leftWord)-1) 
+                    count--;                                                                          
+                    left += k 
+                }
+                if(count === words.length){                   // push(left) and move left by k(remove trailing elements frequency)
+                    results.push(left)                        // store left as result
+
+                    let leftWord = s.slice(left, left + k)
+                    seenMap.set(leftWord, seenMap.get(leftWord)-1) 
+                    count-- 
+                    left += k                                   
+                }
+            }else {                                            // no matches; reset count,seen, and left index(edge)
+                seenMap.clear()                                 
+                count = 0 
+                left = right 
+            }
+        }
+    }
+    return results 
+};
+
