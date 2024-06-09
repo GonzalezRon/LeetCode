@@ -1,0 +1,35 @@
+
+Given a string s, return the longest 
+palindromic
+ 
+substring
+ in s.
+
+
+Example 1:
+
+Input: s = "babad"
+Output: "bab"
+Explanation: "aba" is also a valid answer.
+Example 2:
+
+Input: s = "cbbd"
+Output: "bb"
+
+
+
+
+const longestPalindrome=(s)=>{
+    let res1 = 0, res2 = 0 
+
+    for( let i = 0; i < s.length; i++){
+        let l = i, r = i
+
+        while( r+1 < s.length && s[l]===s[r+1]) r++;                           // even palindrome 
+        while( l-1 > -1 && r+1 <= s.length && s[l-1] === s[r+1]) l--,r++;      // odd pal. 
+         
+        if(r - l > res2-res1) res1 = l, res2 = r;                       // replace values with index of longest palindrome 
+
+    }
+    return s.slice(res1, res2+1)                                         // + 1 for index 
+ }
